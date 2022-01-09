@@ -40,10 +40,25 @@ export default class Comment extends Component {
       comments: comments.filter((item) => item.id !== id),
     })
   }
-  changCollect = (item: any) => {
+  changCollect = (ite: {
+    id: any
+    name?: string
+    avatar?: string
+    content?: string
+    time?: string
+    vip?: boolean
+    collect?: boolean
+  }) => {
     console.log('123')
+    const { comments } = this.state
     this.setState({
-      item: item ? (item.collect = !item.collect) : item,
+      comments: comments.map((item) => {
+        if (item.id === ite.id) {
+          return { ...item, collect: !item.collect }
+        } else {
+          return item
+        }
+      }),
     })
   }
   render() {
