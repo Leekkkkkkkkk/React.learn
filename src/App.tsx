@@ -1,51 +1,92 @@
 import React, { Component } from 'react'
-import CommentHeader from './components/CommentHeader'
-import CommentInput from './components/CommentInput'
-import CommentList from './components/CommentList'
+import Footer from './components/Footer'
+import Header from './components/Header'
+import Main from './components/Main'
 import './index.css'
-import { user, comments } from './data'
-export default class App extends Component {
+import { Todo } from './Todo'
+class App extends Component {
   state = {
-    user,
-    comments,
-    //default默认高亮 time 高亮
-    active: 'default',
+    Todo,
+    active: 'All',
   }
-  //改变高亮
-  setActive = (value: string) => {
+  //添加
+  addTodo = (title: string) => {
+    this.setState({
+      Todo: [
+        {
+          id: Math.random(),
+          title,
+          done: false,
+        },
+        ...this.state.Todo,
+      ],
+    })
+  }
+  //全选为true
+  editTrue = () => {
+    const itemTrue = this.state.Todo.every((item) => item.done)
+    this.setState({
+      Todo: this.state.Todo.map((item) => {
+        return { ...item, done: !itemTrue }
+      }),
+    })
+  }
+  //删除
+  editDele = (id: number) => {
+    this.setState({
+      Todo: this.state.Todo.filter((item) => item.id !== id),
+    })
+  }
+  //选中的为true
+  choiceTrue = (id: number) => {
+    this.setState({
+      Todo: this.state.Todo.map((item) => {
+        if (item.id === id) {
+          return { ...item, done: !item.done }
+        }
+        return item
+      }),
+      length: Todo.filter((item) => item.done === false).length,
+    })
+  }
+  //选中高亮
+  activeClick = (value: string) => {
     this.setState({
       active: value,
     })
   }
-  //添加评论
-  addComment = (content: string) => {
-    console.log(content)
+  //修改当前项
+  addEdit = (value: string, id: number) => {
     this.setState({
-      comments: [
-        ...this.state.comments,
-        {
-          ...this.state.user,
-          id: Math.random(),
-          content,
-          collect: false,
-          time: new Date(),
-        },
-      ],
+      Todo: this.state.Todo.map((item) => {
+        if (item.id === id) {
+          return { ...item, title: value }
+        } else {
+          return item
+        }
+      }),
     })
   }
   render() {
-    const { comments, active } = this.state
     return (
-      <div className="comments">
-        <h3 className="comm-head">评论</h3>
-        <CommentInput addComment={this.addComment} />
-        <CommentHeader
-          active={active}
-          setActive={this.setActive}
-          length={comments.length}
+      <section className="todoapp">
+        <Header addTodo={this.addTodo} />
+        <Main
+          Todo={this.state.Todo}
+          editTrue={this.editTrue}
+          editDele={this.editDele}
+          choiceTrue={this.choiceTrue}
+          active={this.state.active}
+          addEdit={this.addEdit}
         />
-        <CommentList comments={comments} active={active} />
-      </div>
+        <Footer
+          Todo={this.state.Todo}
+          active={this.state.active}
+          activeClick={this.activeClick}
+        />
+      </section>
     )
   }
 }
+
+export default App
