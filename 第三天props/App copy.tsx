@@ -33,6 +33,18 @@ export default class App extends Component {
       ],
     })
   }
+  editCommentDelete = (id: number) => {
+    this.setState({
+      comments: this.state.comments.filter((item) => item.id !== id),
+    })
+  }
+  collectComment = (id: number) => {
+    this.setState({
+      comments: this.state.comments.map((item) => {
+        return item.id === id ? { ...item, collect: !item.collect } : item
+      }),
+    })
+  }
   render() {
     const { comments, active } = this.state
     return (
@@ -44,7 +56,13 @@ export default class App extends Component {
           setActive={this.setActive}
           length={comments.length}
         />
-        <CommentList comments={comments} active={active} />
+        <CommentList
+          comments={comments}
+          active={active}
+          username={this.state.user.name}
+          editCommentDelete={this.editCommentDelete}
+          collectComment={this.collectComment}
+        />
       </div>
     )
   }

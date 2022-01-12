@@ -12,9 +12,15 @@ type Iprops = {
 const CommentList = ({
   comments,
   active,
+  username,
+  editCommentDelete,
+  collectComment,
 }: {
   comments: Array<Iprops>
   active: string
+  username: string
+  editCommentDelete: (id: number) => void
+  collectComment: (id: number) => void
 }) => {
   const formateTime = (time: Date) => {
     return dayJs(time).format('YYYY-MM-DD')
@@ -47,11 +53,19 @@ const CommentList = ({
               <p className="time">
                 {formateTime(item.time)}
                 <span
+                  onClick={() => collectComment(item.id)}
                   className={`iconfont icon-collect${
                     item.collect ? '-sel' : ''
                   }`}
                 ></span>
-                <span className="del">删除</span>
+                {username === item.name ? (
+                  <span
+                    onClick={() => editCommentDelete(item.id)}
+                    className="del"
+                  >
+                    删除
+                  </span>
+                ) : null}
               </p>
               <p>{item.content}</p>
             </div>
