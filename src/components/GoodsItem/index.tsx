@@ -1,6 +1,7 @@
 import React from 'react'
 import './index.scss'
 const GoodsItem = ({ row, updateState }: any) => {
+  
   return (
     <div className="my-goods-item" style={{ margin: '50px 0' }}>
       <div className="left">
