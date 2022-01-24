@@ -1,7 +1,15 @@
 import React from 'react'
-
+import TodoHeader from './components/TodoHeader'
+import TodoMain from './components/TodoMain'
+import TodoFooter from './components/TodoFooter'
 const App = () => {
-  return <div>231</div>
+  return (
+    <section className="todoapp">
+      <TodoHeader />
+      <TodoMain />
+      <TodoFooter />
+    </section>
+  )
 }
 
 export default App

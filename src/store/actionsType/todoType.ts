@@ -1,0 +1,6 @@
+export const CHANG_DONE = 'CHANG_DONE'
+export const DEL_DONE = 'DELDONE'
+export const ADD_ITEM = 'ADD_ITEM'
+export const CHECKED_ALL = 'CHECKED_ALL'
+export const UPDATE_NAME = 'UPDATE_NAME'
+export const CLEAR_DONE = 'CLEAR_DONE'
