@@ -1,7 +1,11 @@
 import React from 'react'
-
-const app = () => {
-  return <div>123</div>
+import Channel from './components/Channel'
+import NewsList from './components/NewsList'
+export default function App() {
+  return (
+    <div className="app">
+      <Channel></Channel>
+      <NewsList></NewsList>
+    </div>
+  )
 }
-
-export default app
