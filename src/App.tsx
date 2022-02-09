@@ -1,11 +1,16 @@
-import React from 'react'
-import Channel from './components/Channel'
-import NewsList from './components/NewsList'
-export default function App() {
-  return (
-    <div className="app">
-      <Channel></Channel>
-      <NewsList></NewsList>
-    </div>
-  )
+import React, { Component } from 'react'
+import WithMouse from './components/WithMouse'
+import ShowPostion from './components/ShowPostion'
+import ImgPostion from './components/ImgPostion'
+const ShowMouse = WithMouse(ShowPostion)
+const ImgMouse = WithMouse(ImgPostion)
+export default class App extends Component {
+  render() {
+    return (
+      <div>
+        <ShowMouse />
+        <ImgMouse />
+      </div>
+    )
+  }
 }
