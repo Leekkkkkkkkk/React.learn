@@ -1,4 +1,5 @@
 import { ToDoAction } from '../../types/todos'
+
 const initState = {
   list: [
     {
@@ -14,17 +15,27 @@ const initState = {
   ],
 }
 // { type, payload }
-const todos = (state = initState, action: ToDoAction) => {
-  switch (action.type) {
+const todos = (state = initState, actions: ToDoAction) => {
+  switch (actions.type) {
     case 'DEL_TODO':
       return {
         ...state,
-        list: state.list.filter((item) => item.id !== action.payload),
+        list: state.list.filter((item) => item.id !== actions.payload),
       }
     case 'ADD_TODO':
       return {
         ...state,
-        list: [...state.list, { id: Math.random(), name: action.payload, done: false }],
+        list: [...state.list, { id: Math.random(), name: actions.payload, done: false }],
+      }
+    case 'UPDATE_TODO':
+      return {
+        ...state,
+        list: state.list.map((item) => {
+          if (item.id === actions.payload) {
+            return { ...item, done: !item.done }
+          }
+          return item
+        }),
       }
     default:
       return state

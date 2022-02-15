@@ -6,4 +6,8 @@ export interface IAddAction {
   type: 'ADD_TODO'
   payload: string
 }
-export type ToDoAction = IDelAction | IAddAction
+export interface UpdateAction {
+  type: 'UPDATE_TODO'
+  payload: number
+}
+export type ToDoAction = IDelAction | IAddAction | UpdateAction
